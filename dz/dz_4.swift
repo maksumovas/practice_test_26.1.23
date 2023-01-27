@@ -1,66 +1,45 @@
-//
-//  dz_4.swift
-//  dz
-//
-//  Created by Maksumova Sofia on 27/11/22.
-//
 
-
-//
-//  main.swift
-//  hw_4_27.11.22
-//
-//  Created by Maksumova Sofia on 27/11/22.
-//
 
 import Foundation
+//Практическое задание: Используя инструменты ООП написать программу "Кто хочет стать миллионером" Как должна проходить игра. Программа должна запросить имя пользователя, вы вводите и начинаете играть до первого неправильного ответа, за каждый ответ начисляются очки. Результаты всех пользователей сохранять в массив историй. Вопросы и о тветы заполните сами. Реализация произвольная. Попытайтесь, это не итоговое тестирование, проверьте себя!
 
-func dz4_1(){
-    var num = 0
-    var out_words: String = ""
-    var cw: String = ""
-    let words = "tv, tea, walk, table, people, journey, mountain, strengths, conscience, performance, announcments, objectivizing, accidentalness, methoxybenzenes, ACCLIMATIZATIONS, administratorship, ABSENTMINDEDNESSES, ABDOMINOHYSTEROTOMY, ABDOMINOHYSTERECTOMY, ANARCHOINDIVIDUALIST"
+class MillionaireGame {
+    var playerName: String
+    var score: Int
+    var history: [(name: String, score: Int)] = []
+    var questionsAndAnswers: [(question: String, answer: String)] = [("Столица Кыргызстана","Бишкек"), ("Столица Узбекистана", "Ташкент"), ("Столица Казахстана", "Астана")]
+    var gameHistory: [(playerName: String, score: Int)]
 
-    for ch in words {
-        if(ch != " "){
-            
-            
-            if(ch == ","){
-            out_words += ("\(cw) - \(num) symbols ")
-                num = 0
-                cw = ""
-            }
-            else {
-                cw += String(ch)
-                num += 1
-            }
-        }
+    init(name: String) {
+        self.playerName = name
+        self.score = 0
+        self.gameHistory = []
+      }
 
-    }
+      func play() {
+          for (index, question) in questionsAndAnswers.enumerated() {
+              print("Вопрос \(index + 1): \(question.question)")
+              let userAnswer = readLine()
+              if userAnswer == question.answer {
+                  print("Правильно!")
+                  score += 1
+              } else {
+                  print("Неправильно!")
+                  gameHistory.append((playerName, score))
+                  break
+              }
+          }
+          print("\(playerName), cпасибо за игру. Ваш финальный балл \(score)")
+      }
+  }
 
-    print(out_words)
-}
+  print("Добро пожаловать в игру Кто Хочет Стать Миллионером!")
+  print("Введите ваше имя:")
+  let playerName = readLine()
+let game = MillionaireGame(name: playerName!)
+  game.play()
 
-func dz4_2(){
 
-    var digits: String = ""
 
-    for i in 1...100{
-        if i % 2 == 0{
-            digits = digits + "," + String(i)
-        }
-        else if i % 3 == 0{
-            digits = digits + "," + String(i)
-        }
-        else if i % 4 == 0{
-            digits = digits + "," + String(i)
-        }
-        else if i % 5 == 0{
-            digits = digits + "," + String(i)
-        }
-    }
 
-    print(digits)
-    
-}
 
